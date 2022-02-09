@@ -1,4 +1,5 @@
 config.ini
 .vscode
 __pycache__
-ArrCord.sqlite
+DarrCord.sqlite
+DarrCord.log
