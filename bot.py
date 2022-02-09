@@ -41,6 +41,7 @@ bot = commands.Bot(command_prefix="-", intents=intents)
 
 @bot.event
 async def on_ready():
+    bot.admin_user = await bot.fetch_user(admin_user_id)
 
     await PendingRequest.create_table(if_not_exists=True)
 
@@ -72,7 +73,7 @@ async def request(
         results = True
 
     if results:
-        view = views.SeriesSelectView(res, ctx, admin_user)
+        view = views.SeriesSelectView(res, ctx, bot.admin_user)
         await ctx.send("Choose a series from the dropdown:", view=view)
     else:
         await ctx.send("No results found for your request")
@@ -80,9 +81,7 @@ async def request(
 
 @bot.command()
 async def approve(ctx, *approve_select):
-    admin_user = await bot.fetch_user(admin_user_id)
-
-    if ctx.author.id == admin_user.id:
+    if ctx.author.id == bot.admin_user.id:
 
         Pending_Requests = await PendingRequest.select()
 
@@ -146,8 +145,7 @@ async def approve(ctx, *approve_select):
 
 @bot.command()
 async def deny(ctx, *deny_select):
-    admin_user = await bot.fetch_user(admin_user_id)
-    if ctx.author.id == admin_user.id:
+    if ctx.author.id == bot.admin_user.id:
 
         Pending_Requests = await PendingRequest.select()
 
