@@ -7,7 +7,7 @@ name = "pypi"
 nextcord = "*"
 aiohttp = "*"
 aiofiles = "*"
-piccolo = {extras = ["playground", "sqlite"], version = "*"}
+piccolo = {extras = ["sqlite"], version = "*"}
 
 [dev-packages]
 black = "*"
